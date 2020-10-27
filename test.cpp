@@ -1,33 +1,35 @@
 #include "c-echo.h"
+#include "c-count.h"
 
 #include "gtest/gtest.h"
 
 TEST(EchoTest, HelloWorld) {
-    char* test_val[3]; test_val[0] = "./c-echo"; test_val[1] = "hello"; test_val[2] = "world";
+    char* test_val[3]; test_val[0] = "./c-echo-count"; test_val[1] = "hello"; test_val[2] = "world";
     EXPECT_EQ("hello world", echo(3,test_val));
 }
 
 TEST(EchoTest, EmptyString) {
-    char* test_val[1]; test_val[0] = "./c-echo";
-    EXPECT_EQ("", echo(1,test_val));
+    char* test_val[1]; test_val[0] = "./c-echo-count";
+    EXPECT_EQ("", echo(1, test_val));
 }
 
-TEST(EchoTest, MixedCharsAndNums) {
-        char* test_val[3]; test_val[0] = "./c-echo"; test_val[1] = "a1b2c3d4"; test_val[2] = "f5h3j2b9x211hgh54p";
-        EXPECT_EQ("a1b2c3d4 f5h3j2b9x211hgh54p", echo(3, test_val));
+TEST(CountTest, HelloWorld) {
+    std::string test_str = "hello world";
+    EXPECT_EQ(2, count(test_str));
 }
 
-TEST(EchoTest, SpecialChars) {
-        char* test_val[4]; test_val[0] = "./c-echo"; test_val[1] = "!@#"; test_val[2] = "$%^"; test_val[3] = "&*(";
-        EXPECT_EQ("!@# $%^ &*(", echo(4, test_val));
+TEST(CountTest, EmptyString) {
+    std::string test_str = "";
+    EXPECT_EQ(0, count(test_str));
 }
 
-TEST(EchoTest, TripleSpaces) {
-        char* test_val[4]; test_val[0] = "./c-echo"; test_val[1] = "A "; test_val[2] = " B "; test_val[3] = " C ";
-        EXPECT_EQ("A   B   C ", echo(4, test_val));
-} 
+TEST(CountTest, ManySpaces) {
+    std::string test_str = "   this   string has     weird   spacing";
+    EXPECT_EQ(5, count(test_str));
+}
 
 int main(int argc, char **argv) {
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
-}
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+} 
+
